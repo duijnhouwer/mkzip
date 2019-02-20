@@ -4,7 +4,7 @@ Matlab class to losslessly compress and uncompress numerical matrices and string
 Example:
 ```matlab
   d = randi(8,1000,1000); % generate some data
-  M = mkzip(d) % returns compressed version of d in mkzip object
+  M = mkzip(d) % returns compressed version of d in mkzip object M
   d = M.unzip; % returns uncompressed data in d 
   r = M.ratio % returns the compression ratio r
 ```

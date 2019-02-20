@@ -3,9 +3,9 @@ classdef mkzip
     %
     %   Example:
     %     d = randi(8,1000,1000); % generate some data
-    %     M = mkzip(d) % returns compressed version of d in mkzip object M 
-    %     d = M.unzip; % returns uncompressed data in d 
-    %     r = M.ratio % returns the compression ratio r
+    %     M = mkzip(d) % compress d in mkzip object M 
+    %     d = M.unzip; % return uncompressed d 
+    %     r = M.ratio % 0 means no compression, 1 means fully compressed
     %
     %   This is a class wrapper for Michael Kleder dzip/dunzip functions.
     %   The main advantage of making this a class is that it is impossible
@@ -37,13 +37,13 @@ classdef mkzip
             Z.dataBytes=tmp.bytes;
             tmp=whos('Z');
             Z.zipBytes=tmp.bytes;
-            Z.ratio=Z.zipBytes/Z.dataBytes;
+            Z.ratio=1-Z.zipBytes/Z.dataBytes;
         end
         function disp(Z)
             dataSizeStr=sprintf('%dx',Z.dataSize);
             dataSizeStr(end)=[];
             dataInf=[dataSizeStr ' ' Z.dataClass 's-array'];
-            fprintf(['\t<a href="matlab:help mkzip">mkzip</a> object holding a ' dataInf ' (' num2str(100-Z.ratio*100,'%.1f') '%% compressed)\n\n']);
+            fprintf(['\t<a href="matlab:help mkzip">mkzip</a> object holding a ' dataInf ' (' num2str(Z.ratio*100,'%.1f') '%% compressed)\n\n']);
         end
         function data=unzip(Z)
             data=dunzip(Z.data);

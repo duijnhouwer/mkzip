@@ -4,9 +4,9 @@ Matlab class to losslessly compress and uncompress numerical matrices and string
 Example:
 ```matlab
   d = randi(8,1000,1000); % generate some data
-  M = mkzip(d) % returns compressed version of d in mkzip object M
-  d = M.unzip; % returns uncompressed data in d 
-  r = M.ratio % returns the compression ratio r
+  M = mkzip(d) % compress d in mkzip object M 
+  d = M.unzip; % return uncompressed d 
+  r = M.ratio % 0 means no compression, 1 means fully compressed
 ```
 This is a class wrapper for Michael Kleder dzip/dunzip functions.
 The main advantage of making this a class is that it is impossible
